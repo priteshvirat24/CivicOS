@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  backend-api:
+    build: 
+      context: ./backend
+    container_name: civicos-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ROLE=api
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/civicos.db
+    volumes:
+      - civicos-data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend-worker:
+    build: 
+      context: ./backend
+    container_name: civicos-worker
+    environment:
+      - ROLE=worker
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/civicos.db
+      - POLL_INTERVAL_SECONDS=300
+    volumes:
+      - civicos-data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./frontend
+    container_name: civicos-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    restart: unless-stopped
+    depends_on:
+      backend-api:
+        condition: service_healthy
+
+volumes:
+  civicos-data:

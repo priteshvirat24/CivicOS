@@ -1,0 +1,21 @@
+[
+  {
+    "name": {
+      "common": "India",
+      "official": "Republic of India"
+    },
+    "capital": [
+      "New Delhi"
+    ],
+    "region": "Asia",
+    "population": 1380004385,
+    "borders": [
+      "BGD",
+      "BTN",
+      "MMR",
+      "CHN",
+      "NPL",
+      "PAK"
+    ]
+  }
+]

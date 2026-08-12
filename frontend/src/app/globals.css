@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Helvetica Neue", sans-serif;
+  --font-serif: "Merriweather", "Georgia", serif;
+  --color-civic-slate: #1e293b;
+  --color-civic-blue: #0f172a;
+  --color-civic-muted: #f8fafc;
+  --color-civic-border: #e2e8f0;
+  --color-civic-accent: #334155;
+  --color-health-green: #10b981;
+  --color-health-failing: #f59e0b;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-civic-muted);
+    color: var(--color-civic-slate);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--color-civic-blue);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Subtle motion utility for the activity feed */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-new-event {
+  animation: slideDown 0.4s ease-out forwards;
+}
