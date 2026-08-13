@@ -23,10 +23,10 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
 
   return (
     <div className="w-full min-h-[90vh] flex flex-col relative overflow-hidden bg-[#fafafa]">
-      
+
       {/* Top Navigation */}
       <nav className="w-full max-w-7xl mx-auto px-6 py-8 flex justify-between items-center z-20">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -34,8 +34,8 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
         >
           CivicOS
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7 }}
@@ -46,8 +46,8 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
           <a href="#sources" className="hover:text-slate-900 transition-colors">Sources</a>
           <a href="#activity" className="hover:text-slate-900 transition-colors">Activity</a>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -60,15 +60,15 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
 
       {/* Main Hero Content */}
       <div className="flex-1 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 pb-12">
-        
+
         {/* Left: Typography & CTAs */}
-        <motion.div 
+        <motion.div
           variants={container}
           initial="hidden"
           animate="show"
           className="max-w-2xl mt-12 lg:mt-0"
         >
-          <motion.h1 
+          <motion.h1
             variants={item}
             className="text-6xl sm:text-7xl lg:text-8xl font-black font-sans text-slate-900 tracking-tighter leading-[0.95]"
           >
@@ -77,29 +77,29 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
             ARE DEAD.
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             variants={item}
             className="mt-6 text-xl sm:text-2xl font-serif text-slate-900 font-semibold max-w-lg leading-snug"
           >
             The civic dataset that refuses to go stale.
           </motion.p>
-          
-          <motion.p 
+
+          <motion.p
             variants={item}
             className="mt-4 text-sm sm:text-base text-slate-500 max-w-lg leading-relaxed font-medium"
           >
             Public data changes every day. CivicOS watches, verifies, and publishes the change.
           </motion.p>
-          
+
           <motion.div variants={item} className="mt-10 flex flex-col sm:flex-row gap-4">
-            <button 
+            <button
               onClick={onExperienceClick}
               className="bg-slate-900 text-white px-8 py-4 font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-3 hover:bg-emerald-600 transition-colors group"
             >
-              EXPERIENCE CIVICOS IN 30s 
+              EXPERIENCE CIVICOS IN 30s
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <a 
+            <a
               href="#data"
               className="bg-white text-slate-900 border-2 border-slate-900 px-8 py-4 font-bold tracking-widest text-xs uppercase flex items-center justify-center hover:bg-slate-50 transition-colors"
             >
@@ -109,7 +109,7 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
         </motion.div>
 
         {/* Right: 3D Visualization */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
@@ -120,12 +120,12 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
             <div className="w-8 h-px bg-slate-300"></div>
             8 SOURCES
           </div>
-          
+
           <div className="absolute bottom-1/4 right-12 translate-x-0 z-20 hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest -rotate-90 origin-right">
             8 AGENTS
             <div className="w-8 h-px bg-slate-300"></div>
           </div>
-          
+
           <div className="absolute top-8 right-8 z-20 bg-white/80 backdrop-blur-sm px-4 py-2 border border-slate-100 rounded text-xs font-semibold text-slate-500 uppercase tracking-widest shadow-sm">
             1 LIVING DATASET
           </div>
@@ -141,7 +141,7 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
           </Suspense>
         </motion.div>
       </div>
-      
+
     </div>
   );
 }

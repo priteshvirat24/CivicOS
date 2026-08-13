@@ -27,7 +27,7 @@ function Core({ phase }: { phase: number }) {
     if (wireframeRef.current) {
       wireframeRef.current.rotation.y -= 0.001;
       wireframeRef.current.rotation.x -= 0.002;
-      
+
       // Phase 7 (Merged): Large pulse
       let pulse = 0;
       if (phase === 7) {
@@ -35,11 +35,11 @@ function Core({ phase }: { phase: number }) {
       } else {
         pulse = Math.sin(state.clock.elapsedTime * 2) * 0.02;
       }
-      
+
       const scale = 1 + pulse;
       wireframeRef.current.scale.set(scale, scale, scale);
     }
-    
+
     // Core turns green briefly on phase 7
     if (materialRef.current) {
       const targetColor = new THREE.Color(phase === 7 ? SUCCESS_COLOR : CORE_COLOR);
@@ -61,7 +61,7 @@ function Core({ phase }: { phase: number }) {
 
 function OrbitingNodes({ phase }: { phase: number }) {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   // Track packet position
   const [packetProgress, setPacketProgress] = useState(0);
 
@@ -73,7 +73,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
       const sx = Math.cos(angle) * sourceRadius;
       const sz = Math.sin(angle) * sourceRadius;
       const sy = Math.sin(angle * 3) * 1.5;
-      
+
       const agentRadius = 3.5;
       const ax = Math.cos(angle + 0.2) * agentRadius;
       const az = Math.sin(angle + 0.2) * agentRadius;
@@ -93,7 +93,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.05;
       groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
     }
-    
+
     // Animate packet in phase 5
     if (phase === 5) {
       setPacketProgress((p) => Math.min(1, p + 0.015));
@@ -104,7 +104,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
 
   const demoNodeIndex = 4; // Arbitrarily pick node 4 to be the active one
   const activeNode = nodes[demoNodeIndex];
-  
+
   // Calculate packet position (Source -> Agent -> Core)
   const packetPos = new THREE.Vector3();
   if (phase === 5) {
@@ -115,7 +115,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
     } else {
       // Agent to Core
       const normalizedP = (packetProgress - 0.5) * 2; // 0 to 1
-      packetPos.copy(activeNode.agentPos).lerp(new THREE.Vector3(0,0,0), normalizedP);
+      packetPos.copy(activeNode.agentPos).lerp(new THREE.Vector3(0, 0, 0), normalizedP);
     }
   }
 
@@ -134,12 +134,12 @@ function OrbitingNodes({ phase }: { phase: number }) {
             <Sphere position={node.sourcePos} args={[isDemo && phase === 4 ? 0.25 : 0.15, 16, 16]}>
               <meshStandardMaterial color={sourceColor} roughness={0.7} />
             </Sphere>
-            
+
             {/* Agent */}
             <Sphere position={node.agentPos} args={[isDemo && phase === 5 ? 0.2 : 0.1, 16, 16]}>
               <meshStandardMaterial color={agentColor} emissive={agentColor} emissiveIntensity={0.5} />
             </Sphere>
-            
+
             {/* Connection: Source -> Agent */}
             <Line
               points={[node.sourcePos, node.agentPos]}
@@ -148,7 +148,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
               opacity={0.3}
               lineWidth={1}
             />
-            
+
             {/* Connection: Agent -> Core */}
             <Line
               points={[node.agentPos, new THREE.Vector3(0, 0, 0)]}
@@ -160,7 +160,7 @@ function OrbitingNodes({ phase }: { phase: number }) {
           </group>
         );
       })}
-      
+
       {/* Moving Packet */}
       {phase === 5 && packetProgress > 0 && packetProgress < 1 && (
         <Sphere position={packetPos} args={[0.08, 16, 16]}>
@@ -192,7 +192,7 @@ function Scene({ phase }: { phase: number }) {
       <directionalLight position={[10, 10, 5]} intensity={1.5} color="#ffffff" />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#94a3b8" />
       <pointLight position={[0, 0, 0]} intensity={phase === 7 ? 4 : 2} color={phase === 7 ? SUCCESS_COLOR : AGENT_COLOR} distance={8} />
-      
+
       <Core phase={phase} />
       <OrbitingNodes phase={phase} />
     </>
@@ -202,7 +202,7 @@ function Scene({ phase }: { phase: number }) {
 export default function CinematicDataCore({ phase }: { phase: number }) {
   return (
     <div className="w-full h-full relative cursor-default">
-      <Canvas camera={{ position: [0, 2, 22], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
+      <Canvas camera={{ position: [0, 2, 18], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
         <Scene phase={phase} />
       </Canvas>
     </div>
