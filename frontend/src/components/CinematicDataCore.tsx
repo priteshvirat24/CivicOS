@@ -16,28 +16,12 @@ const SUCCESS_COLOR = "#10b981"; // emerald-500
 
 function Core({ phase }: { phase: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const wireframeRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.002;
       meshRef.current.rotation.x += 0.001;
-    }
-    if (wireframeRef.current) {
-      wireframeRef.current.rotation.y -= 0.001;
-      wireframeRef.current.rotation.x -= 0.002;
-
-      // Phase 7 (Merged): Large pulse
-      let pulse = 0;
-      if (phase === 7) {
-        pulse = Math.sin(state.clock.elapsedTime * 8) * 0.1;
-      } else {
-        pulse = Math.sin(state.clock.elapsedTime * 2) * 0.02;
-      }
-
-      const scale = 1 + pulse;
-      wireframeRef.current.scale.set(scale, scale, scale);
     }
 
     // Core turns green briefly on phase 7
@@ -51,9 +35,6 @@ function Core({ phase }: { phase: number }) {
     <group visible={phase >= 2}>
       <Icosahedron ref={meshRef} args={[2, 1]}>
         <meshStandardMaterial ref={materialRef} color={CORE_COLOR} roughness={0.2} metalness={0.8} />
-      </Icosahedron>
-      <Icosahedron ref={wireframeRef} args={[2.2, 1]}>
-        <meshBasicMaterial color={CORE_WIREFRAME} wireframe transparent opacity={0.2} />
       </Icosahedron>
     </group>
   );

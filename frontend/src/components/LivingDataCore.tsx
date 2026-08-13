@@ -13,20 +13,11 @@ const CONNECTION_COLOR = "#cbd5e1"; // slate-300
 
 function Core() {
   const meshRef = useRef<THREE.Mesh>(null);
-  const wireframeRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.002;
       meshRef.current.rotation.x += 0.001;
-    }
-    if (wireframeRef.current) {
-      wireframeRef.current.rotation.y -= 0.001;
-      wireframeRef.current.rotation.x -= 0.002;
-
-      // Gentle pulsing
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.02;
-      wireframeRef.current.scale.set(scale, scale, scale);
     }
   });
 
@@ -34,9 +25,6 @@ function Core() {
     <group>
       <Icosahedron ref={meshRef} args={[2, 1]}>
         <meshStandardMaterial color={CORE_COLOR} roughness={0.2} metalness={0.8} />
-      </Icosahedron>
-      <Icosahedron ref={wireframeRef} args={[2.2, 1]}>
-        <meshBasicMaterial color={CORE_WIREFRAME} wireframe transparent opacity={0.2} />
       </Icosahedron>
     </group>
   );
