@@ -23,7 +23,7 @@ function Core() {
     if (wireframeRef.current) {
       wireframeRef.current.rotation.y -= 0.001;
       wireframeRef.current.rotation.x -= 0.002;
-      
+
       // Gentle pulsing
       const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.02;
       wireframeRef.current.scale.set(scale, scale, scale);
@@ -44,19 +44,19 @@ function Core() {
 
 function OrbitingNodes() {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   const nodes = useMemo(() => {
     const items = [];
     // 8 Sources (outer orbit) and 8 Agents (inner orbit)
     for (let i = 0; i < 8; i++) {
       const angle = (i / 8) * Math.PI * 2;
-      
+
       // Source position
       const sourceRadius = 5.5;
       const sx = Math.cos(angle) * sourceRadius;
       const sz = Math.sin(angle) * sourceRadius;
       const sy = Math.sin(angle * 3) * 1.5;
-      
+
       // Agent position
       const agentRadius = 3.5;
       const ax = Math.cos(angle + 0.2) * agentRadius;
@@ -87,12 +87,12 @@ function OrbitingNodes() {
           <Sphere position={node.sourcePos} args={[0.15, 16, 16]}>
             <meshStandardMaterial color={SOURCE_COLOR} roughness={0.7} />
           </Sphere>
-          
+
           {/* Agent */}
           <Sphere position={node.agentPos} args={[0.1, 16, 16]}>
             <meshStandardMaterial color={AGENT_COLOR} emissive={AGENT_COLOR} emissiveIntensity={0.5} />
           </Sphere>
-          
+
           {/* Connection: Source -> Agent */}
           <Line
             points={[node.sourcePos, node.agentPos]}
@@ -101,7 +101,7 @@ function OrbitingNodes() {
             opacity={0.3}
             lineWidth={1}
           />
-          
+
           {/* Connection: Agent -> Core */}
           <Line
             points={[node.agentPos, new THREE.Vector3(0, 0, 0)]}
@@ -130,7 +130,7 @@ function Scene() {
       <directionalLight position={[10, 10, 5]} intensity={1.5} color="#ffffff" />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#94a3b8" />
       <pointLight position={[0, 0, 0]} intensity={2} color={AGENT_COLOR} distance={8} />
-      
+
       <Core />
       <OrbitingNodes />
     </>
@@ -140,7 +140,7 @@ function Scene() {
 export default function LivingDataCore() {
   return (
     <div className="w-full h-full relative cursor-crosshair">
-      <Canvas camera={{ position: [0, 2, 22], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
+      <Canvas camera={{ position: [0, 2, 20], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
         <Scene />
       </Canvas>
     </div>
