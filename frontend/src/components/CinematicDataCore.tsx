@@ -5,7 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Icosahedron, Sphere, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
-const CORE_COLOR = "#f8fafc";
+const CORE_COLOR = "#1e293b"; // slate-800 for contrast
 const CORE_WIREFRAME = "#94a3b8";
 const AGENT_COLOR = "#0ea5e9";
 const SOURCE_COLOR = "#475569";
@@ -203,7 +203,7 @@ export default function CinematicDataCore({ phase }: { phase: number }) {
   return (
     <div className="w-full h-full relative cursor-default">
       <Canvas camera={{ position: [0, 2, 10], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
-        <color attach="background" args={['#0f172a']} /> {/* dark slate background */}
+        <color attach="background" args={['#fafafa']} /> {/* grayish white background */}
         <Scene phase={phase} />
       </Canvas>
     </div>
