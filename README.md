@@ -13,7 +13,7 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-[Live Demo](#) • [GitHub](https://github.com/priteshvirat24/CivicOS) • [Demo Video](#)
+[Live Demo](#) • [GitHub](https://github.com/priteshvirat24/CivicOS) • [Demo Video](https://youtu.be/YpnATqtQqis)
 
 CivicOS monitors public civic data using autonomous source-owner agents. When reality changes, an agent detects it, creates a Data PR, an independent verifier checks it, and the canonical dataset autonomously updates itself.
 
@@ -501,7 +501,7 @@ Source → Agent → Data PR → Verify → Merge → Live Dataset
 
 **GitHub:** [Source Code](https://github.com/priteshvirat24/CivicOS)
 
-**Video:** [30-Second Demo](#)
+**Video:** [30-Second Demo](https://youtu.be/YpnATqtQqis)
 
 ---
 
