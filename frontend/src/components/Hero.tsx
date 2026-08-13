@@ -116,12 +116,12 @@ export function Hero({ onExperienceClick }: { onExperienceClick: () => void }) {
           className="h-[400px] lg:h-[700px] w-full relative -mt-6 lg:mt-0 order-first lg:order-last"
         >
           {/* Decorative Labels */}
-          <div className="absolute top-1/4 left-12 translate-x-0 z-20 hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest rotate-90 origin-left">
+          <div className="absolute top-1/4 left-32 translate-x-0 z-20 hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest rotate-90 origin-left">
             <div className="w-8 h-px bg-slate-300"></div>
             8 SOURCES
           </div>
 
-          <div className="absolute bottom-1/4 right-12 translate-x-0 z-20 hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest -rotate-90 origin-right">
+          <div className="absolute bottom-1/4 right-32 translate-x-0 z-20 hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-widest -rotate-90 origin-right">
             8 AGENTS
             <div className="w-8 h-px bg-slate-300"></div>
           </div>
