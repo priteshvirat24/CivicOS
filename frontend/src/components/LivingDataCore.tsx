@@ -140,7 +140,7 @@ function Scene() {
 export default function LivingDataCore() {
   return (
     <div className="w-full h-full relative cursor-crosshair">
-      <Canvas camera={{ position: [0, 2, 20], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
+      <Canvas camera={{ position: [0, 2, 16], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
         <Scene />
       </Canvas>
     </div>
