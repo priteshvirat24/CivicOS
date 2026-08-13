@@ -202,8 +202,7 @@ function Scene({ phase }: { phase: number }) {
 export default function CinematicDataCore({ phase }: { phase: number }) {
   return (
     <div className="w-full h-full relative cursor-default">
-      <Canvas camera={{ position: [0, 2, 10], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
-        <color attach="background" args={['#fafafa']} /> {/* grayish white background */}
+      <Canvas camera={{ position: [0, 2, 15], fov: 45 }} dpr={[1, 2]} performance={{ min: 0.5 }}>
         <Scene phase={phase} />
       </Canvas>
     </div>
