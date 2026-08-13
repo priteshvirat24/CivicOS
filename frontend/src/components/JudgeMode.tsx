@@ -16,7 +16,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [phase, setPhase] = useState(1);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   // Track if we already triggered backend APIs to prevent duplicate calls
   const [hasMutated, setHasMutated] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -57,7 +57,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
     else if (elapsed < 25) setPhase(7);
     else if (elapsed < 27) setPhase(8);
     else setPhase(9);
-    
+
     // Backend Integrations (Fire and Forget)
     if (elapsed === 10 && !hasMutated) {
       setHasMutated(true);
@@ -67,7 +67,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
         body: JSON.stringify({ income_limit: 500000 })
       }).catch(console.error);
     }
-    
+
     if (elapsed === 15 && !hasTriggered) {
       setHasTriggered(true);
       fetch(`${API_BASE}/api/agents/trigger`, {
@@ -76,7 +76,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
         body: JSON.stringify({ agent_id: "agent_demo_scheme" })
       }).catch(console.error);
     }
-    
+
   }, [elapsed, hasMutated, hasTriggered]);
 
   const reset = () => {
@@ -93,7 +93,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
     animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
     exit: { opacity: 0, y: -20, transition: { duration: 0.4 } }
   };
-  
+
   const fade = {
     initial: { opacity: 0 },
     animate: { opacity: 1, transition: { duration: 0.6 } },
@@ -101,7 +101,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -119,7 +119,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
         <div className="flex items-center gap-4 text-slate-500 font-mono text-sm font-semibold">
           <span>{String(phase).padStart(2, '0')} / 09</span>
           <div className="w-32 h-1 bg-slate-200 rounded-full overflow-hidden">
-            <motion.div 
+            <motion.div
               className="h-full bg-slate-500"
               initial={{ width: "0%" }}
               animate={{ width: `${(elapsed / 30) * 100}%` }}
@@ -128,21 +128,21 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
           </div>
           <span>0:{String(elapsed).padStart(2, '0')}</span>
         </div>
-        
+
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsPlaying(!isPlaying)}
             className="p-3 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
           >
             {isPlaying ? <Pause size={18} /> : <Play size={18} />}
           </button>
-          <button 
+          <button
             onClick={reset}
             className="p-3 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
           >
             <RotateCcw size={18} />
           </button>
-          <button 
+          <button
             onClick={onClose}
             className="p-3 bg-white border border-slate-200 rounded-full hover:bg-red-50 hover:text-red-500 hover:border-red-100 transition-colors text-slate-700 shadow-sm"
           >
@@ -154,14 +154,14 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
       {/* Main Cinematic Text Overlay */}
       <div className="flex-1 relative z-10 flex items-center px-12 md:px-24">
         <AnimatePresence mode="wait">
-          
+
           {/* PHASE 1: 0-3s */}
           {phase === 1 && (
             <motion.div key="p1" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="max-w-4xl">
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.95]">
-                <motion.span 
-                  initial={{ opacity: 1 }} 
-                  animate={{ opacity: 0.2 }} 
+                <motion.span
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 0.2 }}
                   transition={{ duration: 1.5, delay: 1 }}
                 >
                   STATIC
@@ -170,7 +170,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                 ARE DEAD.
               </h1>
               <p className="mt-8 text-2xl text-slate-500 font-medium max-w-lg">
-                Public data changes.<br/>Dashboards don't.
+                Public data changes.<br />Dashboards don't.
               </p>
             </motion.div>
           )}
@@ -178,7 +178,10 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
           {/* PHASE 2: 3-6s */}
           {phase === 2 && (
             <motion.div key="p2" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="max-w-4xl z-10 relative">
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-white mix-blend-difference">
+              <h2
+                className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-slate-900"
+                style={{ textShadow: "0 4px 40px rgba(250,250,250,1), 0 0 20px rgba(250,250,250,1), 0 0 10px rgba(250,250,250,1), 0 0 5px rgba(250,250,250,1)" }}
+              >
                 WHAT IF THE DATASET<br />WATCHED ITSELF?
               </h2>
             </motion.div>
@@ -198,8 +201,8 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                   <span className="text-sm font-semibold tracking-widest text-slate-500 uppercase mt-1">Owner Agents</span>
                 </div>
               </div>
-              <motion.div 
-                animate={{ opacity: [0.5, 1, 0.5] }} 
+              <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 className="mt-8 flex items-center gap-2 text-slate-500 text-sm tracking-widest uppercase font-bold"
               >
@@ -232,8 +235,8 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
             <motion.div key="p5" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="absolute left-12 md:left-24 top-1/3">
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">AGENT 04</h2>
               <h3 className="text-2xl text-blue-600 font-bold mb-6">CHANGE DETECTED</h3>
-              
-              <motion.div 
+
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1 }}
@@ -249,7 +252,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
           {phase === 6 && (
             <motion.div key="p6" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="absolute right-12 md:right-24 top-1/3 text-right">
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 mb-6">VERIFIER AGENT</h2>
-              
+
               <div className="space-y-4 font-mono text-lg font-bold flex flex-col items-end">
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="flex items-center gap-3">
                   <span className="text-slate-600">SOURCE MATCH</span>
@@ -271,7 +274,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
           {phase === 7 && (
             <motion.div key="p7" variants={fade} initial="initial" animate="animate" exit="exit" className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="text-center z-10">
-                <motion.h2 
+                <motion.h2
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   className="text-7xl font-black text-emerald-500 tracking-tighter"
@@ -279,7 +282,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                 >
                   VERIFIED
                 </motion.h2>
-                <motion.h3 
+                <motion.h3
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
@@ -311,7 +314,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-slate-900">
                   REALITY CHANGED.
                 </h1>
-                <motion.h1 
+                <motion.h1
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
@@ -319,7 +322,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                 >
                   CIVICOS NOTICED.
                 </motion.h1>
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 2 }}
