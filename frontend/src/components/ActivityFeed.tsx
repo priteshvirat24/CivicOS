@@ -3,6 +3,7 @@
 import useSWR from "swr";
 import { format } from "date-fns";
 import { ServerCog, GitPullRequest, ShieldCheck, CheckCircle2, FileJson } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SkeletonFeed } from "./Skeletons";
 import { API_BASE } from "@/utils/config";
 
@@ -22,8 +23,8 @@ export function ActivityFeed() {
     if (type === "agent_run") return <ServerCog size={16} className="text-slate-500" />;
     if (type === "data_pr") {
       if (status === "merged") return <CheckCircle2 size={16} className="text-emerald-500" />;
-      if (status === "verifying") return <ShieldCheck size={16} className="text-amber-500" />;
-      return <GitPullRequest size={16} className="text-blue-500" />;
+      if (status === "verifying") return <ShieldCheck size={16} className="text-emerald-500" />;
+      return <GitPullRequest size={16} className="text-emerald-500" />;
     }
     return <ServerCog size={16} className="text-slate-400" />;
   };
@@ -38,45 +39,55 @@ export function ActivityFeed() {
         </span>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
-        {data.events?.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-slate-400">
-            <FileJson size={32} className="mb-2 opacity-50" />
-            <p className="text-sm">No activity recorded yet.</p>
-          </div>
-        ) : (
-          data.events.map((event: any, idx: number) => (
-            <div 
-              key={`${event.timestamp}-${idx}`} 
-              className="flex gap-4 animate-new-event group"
+      <div className="flex-1 overflow-y-auto p-6">
+        <AnimatePresence mode="popLayout">
+          {data.events?.length === 0 ? (
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="flex flex-col items-center justify-center h-full text-slate-400 mt-20"
             >
-            <div className="flex flex-col items-center">
-              <div className="bg-white z-10 py-1">
-                {getIcon(event.type, event.status)}
-              </div>
-              {idx !== data.events.length - 1 && (
-                <div className="w-px h-full bg-slate-200 mt-2"></div>
-              )}
-            </div>
-            
-            <div className="pb-4">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-mono text-slate-400">
-                  {format(new Date(event.timestamp), "HH:mm:ss")}
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm">
-                  {event.agent_id?.replace("agent_", "") || "system"}
-                </span>
-              </div>
-              <p className="text-sm text-slate-700 leading-snug">
-                {event.message}
-              </p>
-              {event.duration_ms && (
-                <p className="text-xs text-slate-400 mt-1">Took {event.duration_ms}ms</p>
-              )}
-            </div>
-          </div>
-        )))}
+              <FileJson size={32} className="mb-2 opacity-50" />
+              <p className="text-sm">No activity recorded yet.</p>
+            </motion.div>
+          ) : (
+            data.events.map((event: any, idx: number) => (
+              <motion.div 
+                layout
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                key={`${event.timestamp}-${idx}`} 
+                className="flex gap-4 group mb-6"
+              >
+                <div className="flex flex-col items-center">
+                  <div className="bg-white z-10 py-1">
+                    {getIcon(event.type, event.status)}
+                  </div>
+                  {idx !== data.events.length - 1 && (
+                    <div className="w-px h-full bg-slate-200 mt-2"></div>
+                  )}
+                </div>
+                
+                <div className="pb-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-mono text-slate-400">
+                      {format(new Date(event.timestamp), "HH:mm:ss")}
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 bg-slate-100 px-2 py-0.5 rounded-sm">
+                      {event.agent_id?.replace("agent_", "") || "system"}
+                    </span>
+                  </div>
+                  <p className="text-sm text-slate-700 leading-snug font-medium">
+                    {event.message}
+                  </p>
+                  {event.duration_ms && (
+                    <p className="text-[10px] text-slate-400 mt-1 font-mono">Duration: {event.duration_ms}ms</p>
+                  )}
+                </div>
+              </motion.div>
+            ))
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
