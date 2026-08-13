@@ -177,8 +177,8 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
 
           {/* PHASE 2: 3-6s */}
           {phase === 2 && (
-            <motion.div key="p2" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="max-w-4xl">
-              <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95]">
+            <motion.div key="p2" variants={fadeUp} initial="initial" animate="animate" exit="exit" className="max-w-4xl z-10 relative">
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-white mix-blend-difference">
                 WHAT IF THE DATASET<br />WATCHED ITSELF?
               </h2>
             </motion.div>
@@ -270,11 +270,12 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
           {/* PHASE 7: 22-25s */}
           {phase === 7 && (
             <motion.div key="p7" variants={fade} initial="initial" animate="animate" exit="exit" className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="text-center">
+              <div className="text-center z-10">
                 <motion.h2 
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   className="text-7xl font-black text-emerald-500 tracking-tighter"
+                  style={{ textShadow: "0 4px 40px rgba(250,250,250,1), 0 0 20px rgba(250,250,250,1), 0 0 10px rgba(250,250,250,1)" }}
                 >
                   VERIFIED
                 </motion.h2>
@@ -283,6 +284,7 @@ export function JudgeMode({ onClose }: JudgeModeProps) {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                   className="text-4xl font-black text-slate-900 mt-4"
+                  style={{ textShadow: "0 4px 40px rgba(250,250,250,1), 0 0 20px rgba(250,250,250,1), 0 0 10px rgba(250,250,250,1)" }}
                 >
                   MERGED
                 </motion.h3>
